@@ -1,7 +1,10 @@
 ---
-title: demo
-date: 2019-01-21 22:04:46
+title: 艾文blog
+date: 2019-08-10 22:04:46
 tags: test-tag
 ---
 
-## This is a demo for blog
+用了记录一些自己在工作中或者学习中遇到的问题或者想法。
+
+
+未完...

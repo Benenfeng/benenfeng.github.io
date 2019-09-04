@@ -23,3 +23,5 @@ tags: [wireshark, tools]
 5. sudo ./run/wireshark
 
 wireshark需要管理员权限，否则找不到网络设备接口。
+
+若有错误或者不当之处，还请大家批评指正！

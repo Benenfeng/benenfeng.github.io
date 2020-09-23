@@ -1,0 +1,355 @@
+
+<!DOCTYPE html>
+<html lang="zh-Hans">
+
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
+  <meta name="theme-color" content="#202020"/>
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+  
+  
+    <meta name="keywords" content="java," />
+  
+
+  
+    <meta name="description" content="简述 Java 注解" />
+  
+  
+  <link rel="icon" type="image/x-icon" href="/logo.png">
+  <title>简述 Java 注解 [ 艾文的博客 ]</title>
+  
+    <!-- stylesheets list from config.yml -->
+    
+      <link rel="stylesheet" href="//cdn.bootcss.com/pure/1.0.0/pure-min.css">
+    
+      <link rel="stylesheet" href="/css/xoxo.css">
+    
+  
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body>
+  <div class="nav-container">
+    <nav class="home-menu pure-menu pure-menu-horizontal">
+  <a class="pure-menu-heading" href="/">
+    <img class="avatar" src="https://benenfeng.com/images/logo.png">
+    <span class="title">艾文的博客</span>
+  </a>
+
+  <ul class="pure-menu-list clearfix">
+      
+          
+            <li class="pure-menu-item"><a href="/" class="pure-menu-link">首页</a></li>
+          
+      
+          
+            <li class="pure-menu-item"><a href="/archives" class="pure-menu-link">归档</a></li>
+          
+      
+          
+            <li class="pure-menu-item"><a href="/tags" class="pure-menu-link">标签</a></li>
+          
+      
+          
+            <li class="pure-menu-item"><a href="/search" class="pure-menu-link">搜索</a></li>
+          
+      
+          
+            <li class="pure-menu-item"><a href="https://benenfeng.com" class="pure-menu-link">关于</a></li>
+          
+      
+  </ul>
+   
+</nav>
+  </div>
+
+  <div class="container" id="content-outer">
+    <div class="inner" id="content-inner">
+      <div class="post-container">
+  <article class="post" id="post">
+    <header class="post-header text-center">
+      <h1 class="title">
+        简述 Java 注解
+      </h1>
+      <span>
+        
+        <time class="time" datetime="2019-09-15T02:41:28.000Z">
+        2019-09-15
+      </time>
+        
+      </span>
+      <span class="slash">/</span>
+      <span class="post-meta">
+      <span class="post-tags">
+        <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/" rel="tag">java</a></li></ul>
+      </span>
+    </span>
+      <span class="slash">/</span>
+      <span class="read">
+      <span id="busuanzi_value_page_pv"></span> 点击
+    </span>
+      <span class="slash">/</span>
+      <span class="read">阅读耗时 5</span>
+    </header>
+
+    <div class="post-content">
+      <h2 id="简述-Java-注解"><a href="#简述-Java-注解" class="headerlink" title="简述 Java 注解"></a>简述 Java 注解</h2><h4 id="什么是注解"><a href="#什么是注解" class="headerlink" title="什么是注解"></a>什么是注解</h4><p>Java 注解可以在编译、类加载和运行时被读取和执行一些处理。通过Java注解可以在不改变原有代码和逻辑的情况下进行一些其他的补充操作。Java 注解可以理解一种特殊意义的注释，然后通过其它代码的解析，补充原代码的操作，如果没有其它代码的解析，注解不会影响原代码的功能。</p>
+<p>通常定义注解为：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> MyAnnotation &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<h4 id="什么是元注解"><a href="#什么是元注解" class="headerlink" title="什么是元注解"></a>什么是元注解</h4><p>元注解就是用来修饰注解的注解, 是一种基础注解，通常用在定义注解上面，就是注解的注解，例如：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">@Target</span>(ElementType.METHOD)</span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> MyAnnotation &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Java 中的元注解有 <strong>@Target</strong>、<strong>@Retention</strong>、<strong>@Documented</strong>、<strong>@Inherited</strong>、<strong>@Repeatable</strong>。</p>
+<ul>
+<li>@Target：指示注释类型所适用的程序元素的种类</li>
+<li>@Retention：注解的保留期即生命周期</li>
+<li>@Documented：将注解元素包含在 JavaDoc 文档中</li>
+<li>@Inherited：允许子类继承超类的注解</li>
+<li>@Repeatable： 可重复的注解</li>
+</ul>
+<h5 id="Target"><a href="#Target" class="headerlink" title="@Target"></a>@Target</h5><p>@Target：指示注释类型所适用的程序元素的种类, 例如方法、类或者属性上面。@Target 有如下几种取值：</p>
+<ul>
+<li>ElementType.ANNOTATION_TYPE 作用在注解上面</li>
+<li>ElementType.CONSTRUCTOR 对构造方法进行注解</li>
+<li>ElementType.FIELD 对属性进行注解</li>
+<li>ElementType.LOCAL_VARIABLE 对局部变量进行注解</li>
+<li>ElementType.METHOD 对方法进行注解</li>
+<li>ElementType.PACKAGE 对一个包进行注解</li>
+<li>ElementType.PARAMETER 对一个方法内的参数进行注解</li>
+<li>ElementType.TYPE 给类、接口、枚举注解</li>
+</ul>
+<h5 id="Retention"><a href="#Retention" class="headerlink" title="@Retention"></a>@Retention</h5><p>@Retention：注解的保留期即生命周期。 @Retention 有如下几种取值：</p>
+<ul>
+<li>RetentionPolicy.SOURCE：只保留在源码阶段，当前注解编译期可见</li>
+<li>RetentionPolicy.CLASS：会写入 class 文件 但是类加载的时候会被丢弃，虚拟机不需要保存</li>
+<li>RetentionPolicy.RUNTIME：运行时有效，会在虚拟机中保留，通过放射可以获取，非常常用</li>
+</ul>
+<h5 id="Documented："><a href="#Documented：" class="headerlink" title="@Documented："></a>@Documented：</h5><p>它的作用就是将注解元素包含在 JavaDoc 文档中。</p>
+<h5 id="Inherited"><a href="#Inherited" class="headerlink" title="@Inherited"></a>@Inherited</h5><p>@Inherited 说的不是注解本身的继承，而且被注解注解过的类的继承问题，如果超类被@Father 注解过，<br>而且@Father 被@Inherited 注解过，如果子类继承了超类，并且子类没有被其它注解注解过，那么子类继承了超类的@Father 注解。</p>
+<h5 id="Repeatable"><a href="#Repeatable" class="headerlink" title="@Repeatable"></a>@Repeatable</h5><p>@Repeatable 字面意思是可重复的，例如生活中，一个人可能扮演多个角色，既是父亲又是丈夫，也可能一个人会多种技能，既会写代码又会开滴滴，同时还会做饭。<br>例如一本书既包含前端知识，又包含后端知识， 等等例子。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">@Target</span>(ElementType.TYPE)</span><br><span class="line"><span class="meta">@Target</span>(RetentionPolicy.RUNTIME)</span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> Persons &#123;</span><br><span class="line">  Person[] value();</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Repeatable</span>(Persons<span class="class">.<span class="keyword">class</span>)</span></span><br><span class="line"><span class="class"><span class="title">public</span> @<span class="title">interface</span> <span class="title">Person</span> </span>&#123;</span><br><span class="line">  <span class="function">String <span class="title">role</span><span class="params">()</span> <span class="keyword">default</span> ""</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Person</span>(role=<span class="string">"Father"</span>)</span><br><span class="line"><span class="meta">@Person</span>(role=<span class="string">"Husband"</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Man</span> </span>&#123;</span><br><span class="line">    String name = <span class="string">"Li San"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="注解的属性"><a href="#注解的属性" class="headerlink" title="注解的属性"></a>注解的属性</h4><p>注解的属性是注解的成员变量，如上例中的 role 就是@Person 注解的属性， 可以通过上面的赋值方式进行赋值 <code>@Person(role=”Father)</code>，<br>当然如果有多个属性，可以用逗号隔开,加入@Person 里面还有一个属性是skill，就可以这样赋值<code>@Person(role=&quot;Father&quot;, skill=&quot;cook&quot;)</code></p>
+<p>Java 注解中支持的属性有8种基本类型(int short boolen…)、Sting、 Class、 Enum、 Annotation 和 这些类型的数组。不支持Integer这种类。</p>
+<h4 id="内置的注解"><a href="#内置的注解" class="headerlink" title="内置的注解"></a>内置的注解</h4><p>下面我们介绍几种常用的内置注解</p>
+<p><strong>@Deprecated：</strong> @Deprecated用来描述在当前系统中已经被废弃不推荐使用的类或方法等。</p>
+<p><strong>@Override：</strong>  主要是用来校验当前被标注的方法是否为重写方法，只作用于ElementType.METHOD。</p>
+<p><strong>@SuppressWarnings：</strong> 过滤掉编译时编译器产生的警告信息。</p>
+<p><strong>@FunctionalInterface：</strong> 函数式接口的注解，例如</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@FunctionalInterface</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> class <span class="title">Lambda</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">fun</span><span class="params">(<span class="keyword">int</span> i)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="自定义注解与解析"><a href="#自定义注解与解析" class="headerlink" title="自定义注解与解析"></a>自定义注解与解析</h4><p>这里面我们定义一个@BookTopic 的注解，用来给Book类进行说明。<strong>@BookTopic</strong> 如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">package</span> com.benen.annotation;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.lang.annotation.Retention;</span><br><span class="line"><span class="keyword">import</span> java.lang.annotation.RetentionPolicy;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Retention</span>(RetentionPolicy.RUNTIME)</span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> BookTopic &#123;</span><br><span class="line"></span><br><span class="line">  String[] value() <span class="keyword">default</span> <span class="string">""</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>Book</strong>类和测试如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.benen.annotation;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.lang.annotation.Annotation;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.InvocationTargetException;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Method;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Book</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@BookTopic</span>(value = &#123;<span class="string">"Java"</span>, <span class="string">"Spring"</span>, <span class="string">"SpringBoot"</span>&#125;)</span><br><span class="line">  <span class="meta">@Deprecated</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">bookInfo</span><span class="params">(String bookName, <span class="keyword">int</span> bookPrice)</span> </span>&#123;</span><br><span class="line">    System.out.println(<span class="string">"书名： "</span> + bookName + <span class="string">" 价格： "</span> + bookPrice);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> NoSuchMethodException, InvocationTargetException, IllegalAccessException </span>&#123;</span><br><span class="line">    Book book = <span class="keyword">new</span> Book();</span><br><span class="line">    Class&lt;Book&gt; c = Book<span class="class">.<span class="keyword">class</span></span>;</span><br><span class="line">    Method mBookInfo = c.getMethod(<span class="string">"bookInfo"</span>, String<span class="class">.<span class="keyword">class</span>, <span class="title">int</span>.<span class="title">class</span>)</span>;</span><br><span class="line">    iterator(mBookInfo);</span><br><span class="line">    mBookInfo.invoke(book, <span class="keyword">new</span> Object[]&#123;<span class="string">"Spring Boot 编程思想"</span>, <span class="number">60</span>&#125;);</span><br><span class="line">    printAllAnnotation(mBookInfo);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">iterator</span><span class="params">(Method method)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(method.isAnnotationPresent(BookTopic<span class="class">.<span class="keyword">class</span>))</span>&#123;</span><br><span class="line">      BookTopic myAnnotation = method.getAnnotation(BookTopic<span class="class">.<span class="keyword">class</span>)</span>;</span><br><span class="line">      String[] values = myAnnotation.value();</span><br><span class="line">      System.out.printf(<span class="string">"这本书关于: "</span>);</span><br><span class="line">      <span class="keyword">for</span> (String str:values)</span><br><span class="line">        System.out.printf(str + <span class="string">" "</span>);</span><br><span class="line">      System.out.println();</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">printAllAnnotation</span><span class="params">(Method method)</span> </span>&#123;</span><br><span class="line">    System.out.println(method.getName() + <span class="string">"方法包含的注解有："</span>);</span><br><span class="line">    Annotation[] annotations = method.getAnnotations();</span><br><span class="line">    <span class="keyword">for</span>(Annotation annotation : annotations)&#123;</span><br><span class="line">      System.out.println(annotation);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>Output:</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">这本书关于: Java Spring SpringBoot </span><br><span class="line">书名： Spring Boot 编程思想 价格： <span class="number">60</span></span><br><span class="line">bookInfo方法包含的注解有：</span><br><span class="line"><span class="meta">@com</span>.benen.annotation.BookTopic(value=[Java, Spring, SpringBoot])</span><br><span class="line"><span class="meta">@java</span>.lang.Deprecated()</span><br></pre></td></tr></table></figure>
+
+<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><p>Java 注解是对原代码的一种补充，可以编写出更灵活的代码， 通常注解主要给编译器及工具类型的软件用的。<br>由于注解的提取需要借助于 Java 的反射机制，而反射机制又比较慢和脆弱，所以需要谨慎使用Java 注解。</p>
+<h4 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h4><ul>
+<li><a href="https://www.runoob.com/w3cnote/java-annotation.html" target="_blank" rel="noopener">https://www.runoob.com/w3cnote/java-annotation.html</a></li>
+</ul>
+
+    </div>
+
+    <div>全文完。</div>
+  </article>
+  <div class="toc-container">
+    
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#简述-Java-注解"><span class="toc-text">简述 Java 注解</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#什么是注解"><span class="toc-text">什么是注解</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#什么是元注解"><span class="toc-text">什么是元注解</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#Target"><span class="toc-text">@Target</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Retention"><span class="toc-text">@Retention</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Documented："><span class="toc-text">@Documented：</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Inherited"><span class="toc-text">@Inherited</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Repeatable"><span class="toc-text">@Repeatable</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#注解的属性"><span class="toc-text">注解的属性</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#内置的注解"><span class="toc-text">内置的注解</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#自定义注解与解析"><span class="toc-text">自定义注解与解析</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#总结"><span class="toc-text">总结</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#参考文献"><span class="toc-text">参考文献</span></a></li></ol></li></ol></li></ol>
+  </div>
+
+
+  </div>
+</div>
+<div class="copyright">
+    <span>本作品采用</span>
+    <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">知识共享署名 4.0 国际许可协议</a>
+    <span>进行许可。 转载时请注明原文链接。</span>
+</div>
+<div class="share" style="width: 100%;">
+  <!--
+    <img src="https://kevinofneu-blog-static.oss-cn-beijing.aliyuncs.com/static/2018-12-10-qrcode_for_gh_ffacf5722095_258.jpg" alt="Running Geek" style="margin: auto; display: block;"/>
+    <div style="margin: auto; text-align: center; font-size: 0.8em; color: grey;">老铁们关注走一走，不迷路</div>
+  -->
+  
+</div>
+
+  
+    <div class="post-nav">
+      <div class="post-nav-item post-nav-next">
+        
+          <span>〈 </span>
+          <a href="/2019/09/12/intellij-copyright/" rel="next" title="Intellij 自动生成Copyright 和 LF CRLF的默认选择">
+          Intellij 自动生成Copyright 和 LF CRLF的默认选择
+          </a>
+        
+      </div>
+  
+      <div class="post-nav-item post-nav-prev">
+          
+          <a href="/2020/01/14/pcap-file/" rel="prev" title="PCAP File Structure Analysis">
+            PCAP File Structure Analysis
+          </a>
+          <span>〉</span>
+        
+      </div>
+    </div>
+  
+
+
+    </div>
+
+    
+
+  </div>
+  <footer class="footer text-center">
+    <div id="bottom-inner">
+        <a class="bottom-item" href="https://benenfeng.com">首页</a> |
+        <a class="bottom-item" href="https://benenfeng.com" target="_blank">主站</a> |
+        <a class="bottom-item" href="https://github.com/benenfeng" target="_blank">GitHub</a> |
+        <a class="bottom-item" href="https://hexo.io" target="_blank">Powered by hexo</a> |
+        <a class="bottom-item" href="https://github.com/KevinOfNeu/hexo-theme-xoxo" target="_blank">Theme xoxo</a>
+    </div>
+</footer>
+  
+
+<script>
+  (function(window, document, undefined) {
+
+    var timer = null;
+
+    function returnTop() {
+      cancelAnimationFrame(timer);
+      timer = requestAnimationFrame(function fn() {
+        var oTop = document.body.scrollTop || document.documentElement.scrollTop;
+        if (oTop > 0) {
+          document.body.scrollTop = document.documentElement.scrollTop = oTop - 50;
+          timer = requestAnimationFrame(fn);
+        } else {
+          cancelAnimationFrame(timer);
+        }
+      });
+    }
+
+    var hearts = [];
+    window.requestAnimationFrame = (function() {
+      return window.requestAnimationFrame ||
+        window.webkitRequestAnimationFrame ||
+        window.mozRequestAnimationFrame ||
+        window.oRequestAnimationFrame ||
+        window.msRequestAnimationFrame ||
+        function(callback) {
+          setTimeout(callback, 1000 / 60);
+        }
+    })();
+    init();
+
+    function init() {
+      css(".heart{z-index:9999;width: 10px;height: 10px;position: fixed;background: #f00;transform: rotate(45deg);-webkit-transform: rotate(45deg);-moz-transform: rotate(45deg);}.heart:after,.heart:before{content: '';width: inherit;height: inherit;background: inherit;border-radius: 50%;-webkit-border-radius: 50%;-moz-border-radius: 50%;position: absolute;}.heart:after{top: -5px;}.heart:before{left: -5px;}");
+      attachEvent();
+      gameloop();
+      addMenuEvent();
+    }
+
+    function gameloop() {
+      for (var i = 0; i < hearts.length; i++) {
+        if (hearts[i].alpha <= 0) {
+          document.body.removeChild(hearts[i].el);
+          hearts.splice(i, 1);
+          continue;
+        }
+        hearts[i].y--;
+        hearts[i].scale += 0.004;
+        hearts[i].alpha -= 0.013;
+        hearts[i].el.style.cssText = "left:" + hearts[i].x + "px;top:" + hearts[i].y + "px;opacity:" + hearts[i].alpha + ";transform:scale(" + hearts[i].scale + "," + hearts[i].scale + ") rotate(45deg);background:" + hearts[i].color;
+      }
+      requestAnimationFrame(gameloop);
+    }
+
+    /**
+     * 给logo设置点击事件
+     * 
+     * - 回到顶部
+     * - 出现爱心
+     */
+    function attachEvent() {
+      var old = typeof window.onclick === "function" && window.onclick;
+      var logo = document.getElementById("logo");
+      if (logo) {
+        logo.onclick = function(event) {
+          returnTop();
+          old && old();
+          createHeart(event);
+        }
+      }
+      
+    }
+
+    function createHeart(event) {
+      var d = document.createElement("div");
+      d.className = "heart";
+      hearts.push({
+        el: d,
+        x: event.clientX - 5,
+        y: event.clientY - 5,
+        scale: 1,
+        alpha: 1,
+        color: randomColor()
+      });
+      document.body.appendChild(d);
+    }
+
+    function css(css) {
+      var style = document.createElement("style");
+      style.type = "text/css";
+      try {
+        style.appendChild(document.createTextNode(css));
+      } catch (ex) {
+        style.styleSheet.cssText = css;
+      }
+      document.getElementsByTagName('head')[0].appendChild(style);
+    }
+
+    function randomColor() {
+      // return "rgb(" + (~~(Math.random() * 255)) + "," + (~~(Math.random() * 255)) + "," + (~~(Math.random() * 255)) + ")";
+      return "#F44336";
+    }
+
+    function addMenuEvent() {
+      var menu = document.getElementById('menu-main-post');
+      if (menu) {
+        var toc = document.getElementById('toc');
+        if (toc) {
+          menu.onclick = function() {
+            if (toc) {
+              if (toc.style.display == 'block') {
+                toc.style.display = 'none';
+              } else {
+                toc.style.display = 'block';
+              }
+            }
+          };
+        } else {
+          menu.style.display = 'none';
+        }
+      }
+    }
+
+  })(window, document);
+</script>
+
+  
+
+
+
+</body>
+</html>
